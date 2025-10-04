@@ -1,175 +1,133 @@
 'use client';
 
-import { useEffect } from "react";
+import { useEffect, type CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import "./styles/home.css";
 
 const navLinks = [
-  { label: "Solutions", href: "#services" },
-  { label: "Work", href: "#showcase" },
-  { label: "Studio", href: "#studios" },
-  { label: "Journal", href: "#journal" },
+  { label: "Bundles", href: "#bundles" },
+  { label: "Studio", href: "#studio" },
+  { label: "Work", href: "#work" },
+  { label: "Contact", href: "#contact" },
 ];
 
-const heroMetrics = [
-  { title: "Studios Served", value: "64" },
-  { title: "Lead Time", value: "2-4 wks" },
-  { title: "Reclaimed Materials", value: "82%" },
+const heroStats = [
+  { label: "Launches completed", value: "58" },
+  { label: "Brands on retainer", value: "23" },
+  { label: "Average timeline", value: "6 weeks" },
 ];
 
-const featuredProducts = [
+const bundleProducts = [
   {
-    name: "Arco Dining Chair",
+    name: "Project Bundle 01",
+    tagline: "Identity + commerce launch system",
+    price: "From $6,200",
+    badge: "Most booked",
+    image:
+      "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1400&q=80",
+    deliverables: ["Naming & messaging", "Brand system & motion kit", "Shopify build & automation"],
+  },
+  {
+    name: "Project Bundle 02",
+    tagline: "Packaging + product storytelling",
+    price: "From $4,900",
+    badge: "New",
+    image:
+      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1400&q=80",
+    deliverables: ["Packaging architecture", "Editorial art direction", "Retention email flows"],
+  },
+  {
+    name: "Project Bundle 03",
+    tagline: "Retail & experiential rollout",
+    price: "From $8,700",
+    badge: "Limited",
+    image:
+      "https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=1400&q=80",
+    deliverables: ["Spatial identity", "Interactive signage", "Launch campaign kit"],
+  },
+];
+
+const caseStudies = [
+  {
+    title: "Maison Lune",
     description:
-      "Curved teak framing with natural cane panels and brass-capped feet for a refined dining statement.",
-    price: "$420",
-    tag: "Bestseller",
+      "We architected an omnichannel experience for the cult-favourite beauty brand, balancing editorial storytelling with fast drop commerce.",
     image:
-      "https://images.unsplash.com/photo-1616628182501-dd6b9283fc45?auto=format&fit=crop&w=1100&q=80",
+      "https://images.unsplash.com/photo-1611043714347-1d7f4f1bc821?auto=format&fit=crop&w=1400&q=80",
+    year: "2024",
   },
   {
-    name: "Piazza Modular Sofa",
+    title: "Drift Supply",
     description:
-      "Feather-wrapped cushions and modular blocks upholstered in undyed Belgian linen.",
-    price: "$2,950",
-    tag: "New Arrival",
+      "Global storefront relaunch with custom configurators, subscription loops, and a content engine tuned for international scale.",
     image:
-      "https://images.unsplash.com/photo-1620662735857-d0ee37edc481?auto=format&fit=crop&w=1100&q=80",
-  },
-  {
-    name: "Obsidian Floor Lamp",
-    description:
-      "Volcanic stone base paired with warm dimmable lighting and a sculpted silk shade.",
-    price: "$610",
-    tag: "Limited",
-    image:
-      "https://images.unsplash.com/photo-1616627452564-cb1c56f14507?auto=format&fit=crop&w=1100&q=80",
+      "https://images.unsplash.com/photo-1511165402301-94151be3f2a0?auto=format&fit=crop&w=1400&q=80",
+    year: "2023",
   },
 ];
 
-const showcasePanels = [
+const mobileScreens = [
   {
-    title: "The Atelier Capsule",
-    copy:
-      "A curated suite of lounge essentials shaped by hand in our Barcelona workshop. Each silhouette is produced in runs of 25 and numbered for provenance.",
-    cta: "Discover capsule",
-    image:
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1400&q=80",
+    src: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=900&q=80",
+    alt: "Mobile storefront product grid",
   },
   {
-    title: "Material Library",
-    copy:
-      "Select upholstery woven from regenerative fibres and FSC-certified hardwoods finished with natural oils.",
-    cta: "View swatches",
-    image:
-      "https://images.unsplash.com/photo-1520256862855-398228c41684?auto=format&fit=crop&w=1400&q=80",
-  },
-];
-
-const principles = [
-  {
-    title: "Responsible Supply",
-    detail:
-      "We work with foresters and mills that exceed FSC guidelines, ensuring every design yields a positive material balance.",
+    src: "https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=900&q=80",
+    alt: "Checkout experience on mobile",
   },
   {
-    title: "Hand Finished",
-    detail:
-      "Our artisans oil, sand, and inspect each piece over multiple days before it ever leaves the studio.",
+    src: "https://images.unsplash.com/photo-1607081692384-0e7c4c38d87b?auto=format&fit=crop&w=900&q=80",
+    alt: "Brand story layout on phone",
   },
-  {
-    title: "Circular Lifecycle",
-    detail:
-      "Return pieces for refurbishment and receive credit toward future releases to keep furniture in rotation.",
-  },
-  {
-    title: "Transparent Pricing",
-    detail:
-      "Every design card lists the true material, labour, and logistics costs so you know what you invest in.",
-  },
-];
-
-const lookbookShots = [
-  {
-    src: "https://images.unsplash.com/photo-1616627452595-1b725f0c6022?auto=format&fit=crop&w=1200&q=80",
-    alt: "Minimalist living room with low lounge seating",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1616627452558-74a53ce38afc?auto=format&fit=crop&w=1200&q=80",
-    alt: "Sculptural dining area with moody lighting",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1616627354093-5f63b29c4c39?auto=format&fit=crop&w=1200&q=80",
-    alt: "Studio with custom shelving and lounge chair",
-  },
-];
-
-const journalEntries = [
-  {
-    title: "Sculptural Forms for Autumn",
-    date: "September 12, 2024",
-    excerpt:
-      "Explore the FW capsule of pedestal tables and ribbon lighting shaped to layer tone-on-tone neutrals.",
-  },
-  {
-    title: "Inside the Fonder Workshop",
-    date: "August 28, 2024",
-    excerpt:
-      "Step inside our Barcelona atelier where artisans steam-bend oak and finish every seam by hand.",
-  },
-  {
-    title: "Designing for Longevity",
-    date: "July 8, 2024",
-    excerpt:
-      "Our creative director shares how timeless silhouettes and natural materials deliver pieces that age beautifully.",
-  },
-];
-
-const pressLogos = [
-  { name: "Architectural Digest", initials: "AD" },
-  { name: "Dezeen", initials: "DZ" },
-  { name: "Wallpaper*", initials: "WP" },
-  { name: "Monocle", initials: "MN" },
 ];
 
 const services = [
   {
-    title: "Custom commissions",
-    description:
-      "Partner with our atelier to draft bespoke pieces sized and finished for private residences, hospitality, and cultural spaces.",
+    title: "Identity systems",
+    description: "Naming, voice, design language, and motion built for adaptive commerce ecosystems.",
   },
   {
-    title: "In-residence styling",
-    description:
-      "Our interior designers layer textiles, art, and lighting for fully dressed rooms, supported by logistics in over 40 countries.",
+    title: "Digital flagships",
+    description: "Custom Shopify, headless storefronts, and conversion journeys engineered to scale.",
   },
   {
-    title: "Lifetime care",
-    description:
-      "Enjoy scheduled maintenance, upholstery refreshing, and refurbishment to ensure every piece endures across generations.",
+    title: "Growth content",
+    description: "Launch playbooks, editorial storytelling, and lifecycle sequences that keep brands front of mind.",
   },
 ];
 
-const projects = [
+const teamMembers = [
   {
-    title: "Casa Brera",
-    location: "Milan, Italy",
-    image:
-      "https://images.unsplash.com/photo-1616628177836-c0b5c35dd5d3?auto=format&fit=crop&w=1400&q=80",
+    name: "Alana Greer",
+    role: "Creative Director",
+    location: "Barcelona",
+    image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80",
   },
   {
-    title: "Harbour Loft",
-    location: "Copenhagen, Denmark",
-    image:
-      "https://images.unsplash.com/photo-1621094818244-3f38625f87b9?auto=format&fit=crop&w=1400&q=80",
+    name: "Kenji Morris",
+    role: "Experience Designer",
+    location: "Melbourne",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80",
   },
   {
-    title: "Desert Pavilion",
-    location: "Sedona, United States",
-    image:
-      "https://images.unsplash.com/photo-1616627562421-fb3f4540b7c1?auto=format&fit=crop&w=1400&q=80",
+    name: "Rafa Ríos",
+    role: "Technology Lead",
+    location: "Mexico City",
+    image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=900&q=80",
   },
+  {
+    name: "Sonia Patel",
+    role: "Brand Strategist",
+    location: "New York",
+    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80",
+  },
+];
+
+const contactHighlights = [
+  "72 hour proposal turnaround",
+  "Dedicated launch squad",
+  "Global drop logistics",
 ];
 
 function useAmbientExperience() {
@@ -192,8 +150,8 @@ function useAmbientExperience() {
       cursor.style.setProperty("--y", `${event.clientY}px`);
 
       if (!prefersReducedMotion) {
-        const xFactor = (event.clientX / window.innerWidth - 0.5) * 18;
-        const yFactor = (event.clientY / window.innerHeight - 0.5) * 18;
+        const xFactor = (event.clientX / window.innerWidth - 0.5) * 16;
+        const yFactor = (event.clientY / window.innerHeight - 0.5) * 16;
         parallaxTargets.forEach((target) => {
           const depth = Number(target.dataset.parallax ?? 1);
           target.style.transform = `translate3d(${xFactor / depth}px, ${yFactor / depth}px, 0)`;
@@ -224,7 +182,7 @@ function useAmbientExperience() {
       },
       {
         threshold: 0.35,
-        rootMargin: "0px 0px -15% 0px",
+        rootMargin: "0px 0px -10% 0px",
       }
     );
 
@@ -240,8 +198,8 @@ function useAmbientExperience() {
       const animate = () => {
         const time = performance.now() * 0.0001;
         if (gradient) {
-          gradient.style.setProperty("--gradient-x", `${50 + Math.sin(time) * 30}%`);
-          gradient.style.setProperty("--gradient-y", `${50 + Math.cos(time) * 30}%`);
+          gradient.style.setProperty("--gradient-x", `${48 + Math.sin(time) * 28}%`);
+          gradient.style.setProperty("--gradient-y", `${42 + Math.cos(time) * 32}%`);
         }
         rafId = requestAnimationFrame(animate);
       };
@@ -280,51 +238,60 @@ export default function Home() {
             </Link>
           ))}
         </nav>
-        <Link className="site-header__cta" href="#studios">
+        <Link className="site-header__cta" href="#contact">
           Let's work
         </Link>
       </header>
 
       <main className="site-main">
         <section className="hero" id="home">
-          <div className="hero__content" data-animate>
-            <p className="hero__eyebrow">Brand design studio</p>
-            <h1 className="hero__title">
-              WHERE GREAT IDEAS BECOME <span className="hero__heart" aria-hidden>♥</span> BELOVED BRANDS
+          <div className="hero__inner" data-animate>
+            <p className="hero__label">Fonder brand studio</p>
+            <h1>
+              We are a band of design and brand builders who find the icons of tomorrow and build
+              beloved brands.
             </h1>
-            <p className="hero__body">
-              Fonder partners with founders to transform concepts into magnetic commerce experiences through strategy,
-              identity, and digital storefronts that resonate.
+            <p className="hero__description">
+              From seed-stage launches to global relaunches, we orchestrate identity, commerce, and
+              content so founders can focus on momentum.
             </p>
             <div className="hero__cta">
-              <Link className="button button--primary" href="#services">
-                Explore solutions
+              <Link className="button button--primary" href="#bundles">
+                View project bundles
               </Link>
-              <Link className="button button--ghost" href="#studios">
-                Let's collaborate
+              <Link className="button button--ghost" href="#contact">
+                Book intro call
               </Link>
             </div>
-            <dl className="hero__metrics">
-              {heroMetrics.map((metric) => (
-                <div key={metric.title} className="hero__metric">
-                  <dt>{metric.title}</dt>
-                  <dd>{metric.value}</dd>
+            <dl className="hero__stats">
+              {heroStats.map((stat) => (
+                <div key={stat.label} className="hero__stat">
+                  <dt>{stat.label}</dt>
+                  <dd>{stat.value}</dd>
                 </div>
               ))}
             </dl>
+          </div>
+          <div className="hero__media" data-parallax="6">
+            <Image
+              src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1400&q=80"
+              alt="Designers collaborating at a brand workshop"
+              fill
+              sizes="(min-width: 1024px) 460px, 70vw"
+            />
           </div>
         </section>
 
         <div className="marquee" aria-hidden="true">
           <div className="marquee__inner">
-            {["Consciously crafted", "Low-impact materials", "Express worldwide", "Lifetime servicing"].map(
+            {["Identity systems", "Commerce buildouts", "Packaging", "Lifecycle content", "Spatial design"].map(
               (item) => (
                 <span key={item}>{item}</span>
               )
             )}
           </div>
           <div className="marquee__inner" aria-hidden="true">
-            {["Consciously crafted", "Low-impact materials", "Express worldwide", "Lifetime servicing"].map(
+            {["Identity systems", "Commerce buildouts", "Packaging", "Lifecycle content", "Spatial design"].map(
               (item) => (
                 <span key={item}>{item}</span>
               )
@@ -332,45 +299,41 @@ export default function Home() {
           </div>
         </div>
 
-        <section className="press" aria-label="Press features" data-animate>
-          <div className="press__inner">
-            {pressLogos.map((press) => (
-              <span key={press.name} className="press__item" aria-label={press.name}>
-                {press.initials}
-              </span>
-            ))}
-          </div>
-        </section>
-
-        <section className="featured" id="shop" data-animate>
-          <div className="section-header">
-            <p className="eyebrow">Featured pieces</p>
-            <div className="section-header__meta">
-              <span>Edition 05</span>
-              <Link href="#" aria-label="Shop all furniture" className="link-underline">
-                Shop all
-              </Link>
+        <section className="bundles" id="bundles">
+          <div className="section-header" data-animate>
+            <p className="eyebrow">Project bundles</p>
+            <div>
+              <h2>Everything you need to launch without the burn.</h2>
+              <p>
+                Fixed-scope squads built to ship strategy, design, and technology in parallel. Pick the
+                bundle that aligns with your next milestone.
+              </p>
             </div>
           </div>
-          <div className="featured__grid">
-            {featuredProducts.map((product) => (
-              <article key={product.name} className="product-card" data-parallax="8">
-                <div className="product-card__media">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    sizes="(min-width: 1024px) 420px, 80vw"
-                  />
-                  <span className="product-card__tag">{product.tag}</span>
+          <div className="bundles__grid">
+            {bundleProducts.map((bundle, index) => (
+              <article
+                key={bundle.name}
+                className="bundle-card"
+                data-animate
+                style={{ "--stagger": index } as CSSProperties}
+              >
+                <div className="bundle-card__media" data-parallax="8">
+                  <Image src={bundle.image} alt={bundle.name} fill sizes="(min-width: 1024px) 320px, 80vw" />
+                  <span className="bundle-card__badge">{bundle.badge}</span>
                 </div>
-                <div className="product-card__content">
-                  <h3>{product.name}</h3>
-                  <p>{product.description}</p>
-                  <div className="product-card__footer">
-                    <span>{product.price}</span>
-                    <button type="button" className="link-underline">
-                      Add to cart
+                <div className="bundle-card__content">
+                  <h3>{bundle.name}</h3>
+                  <p className="bundle-card__tagline">{bundle.tagline}</p>
+                  <ul>
+                    {bundle.deliverables.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                  <div className="bundle-card__footer">
+                    <span>{bundle.price}</span>
+                    <button type="button" className="button button--secondary">
+                      Reserve build week
                     </button>
                   </div>
                 </div>
@@ -379,108 +342,68 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="capsule" data-animate>
-          <div className="capsule__media" data-parallax="6">
-            <Image
-              src="https://images.unsplash.com/photo-1616627562463-e4608edbc5cc?auto=format&fit=crop&w=1400&q=80"
-              alt="Artisanal workshop bench"
-              fill
-              sizes="(min-width: 1024px) 560px, 90vw"
-            />
-          </div>
-          <div className="capsule__content">
-            <p className="eyebrow">Edition Capsule</p>
-            <h2>Slow crafted furniture shaped by hand in small batches.</h2>
+        <section className="studio" id="studio">
+          <div className="studio__intro" data-animate>
+            <p className="eyebrow">Studio ethos</p>
+            <h2>We choreograph design, content, and product to give founders unfair momentum.</h2>
             <p>
-              Each capsule release is produced by a core team of artisans using reclaimed hardwoods, plant-dyed textiles, and
-              solid brass joinery. Reserve an allocation or customise dimensions with our atelier specialists.
+              Every engagement is guided by a core team embedded with your operators. We ideate in FigJam,
+              prototype in WebGL, and deploy in Shopify Plus and headless stacks without breaking stride.
             </p>
-            <ul className="capsule__list">
-              <li>Limited runs of 25 pieces per silhouette</li>
-              <li>Material provenance certificates included</li>
-              <li>Express white glove delivery worldwide</li>
-            </ul>
-            <div className="capsule__actions">
-              <Link className="button button--primary" href="#">
-                View capsule lookbook
-              </Link>
-              <Link className="button button--ghost" href="#">
-                Reserve consultation
-              </Link>
-            </div>
           </div>
+          <dl className="studio__stats" data-animate>
+            <div className="studio__stat">
+              <dt>In-house disciplines</dt>
+              <dd>Strategy · Design · 3D · Motion · DevOps</dd>
+            </div>
+            <div className="studio__stat">
+              <dt>Active markets</dt>
+              <dd>APAC · EU · North America</dd>
+            </div>
+            <div className="studio__stat">
+              <dt>Retention partners</dt>
+              <dd>92% of founders renew after launch</dd>
+            </div>
+          </dl>
         </section>
 
-        <section className="showcase" id="showcase">
-          {showcasePanels.map((panel) => (
-            <article key={panel.title} className="showcase__panel" data-animate>
-              <div className="showcase__media" data-parallax="5">
-                <Image
-                  src={panel.image}
-                  alt={panel.title}
-                  fill
-                  sizes="(min-width: 1024px) 600px, 90vw"
-                />
+        <section className="case-studies" id="work">
+          {caseStudies.map((study, index) => (
+            <article
+              key={study.title}
+              className="case-card"
+              data-animate
+              style={{ "--stagger": index } as CSSProperties}
+            >
+              <div className="case-card__media" data-parallax="5">
+                <Image src={study.image} alt={study.title} fill sizes="(min-width: 1024px) 520px, 80vw" />
+                <span className="case-card__year">{study.year}</span>
               </div>
-              <div className="showcase__content">
-                <p className="eyebrow">Studio focus</p>
-                <h2>{panel.title}</h2>
-                <p>{panel.copy}</p>
+              <div className="case-card__content">
+                <h3>{study.title}</h3>
+                <p>{study.description}</p>
                 <Link href="#" className="link-underline">
-                  {panel.cta}
+                  View case study
                 </Link>
               </div>
             </article>
           ))}
         </section>
 
-        <section className="principles" id="principles" data-animate>
+        <section className="mobile" aria-label="Mobile experience showcase" data-animate>
           <div className="section-header">
-            <p className="eyebrow">Founding principles</p>
-            <span>Designed for longevity</span>
+            <p className="eyebrow">Mobile-first journeys</p>
+            <h2>Commerce that feels native on every device.</h2>
           </div>
-          <div className="principles__grid">
-            {principles.map((principle) => (
-              <article key={principle.title} className="principles__card">
-                <h3>{principle.title}</h3>
-                <p>{principle.detail}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="projects" data-animate>
-          <div className="section-header">
-            <p className="eyebrow">Recent interiors</p>
-            <span>Bespoke spaces furnished by Fonder Studio</span>
-          </div>
-          <div className="projects__track">
-            {projects.map((project) => (
-              <figure key={project.title} className="projects__card" data-parallax="6">
-                <Image
-                  src={project.image}
-                  alt={`${project.title} in ${project.location}`}
-                  fill
-                  sizes="(min-width: 1024px) 520px, 90vw"
-                />
-                <figcaption>
-                  <span>{project.location}</span>
-                  <strong>{project.title}</strong>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </section>
-
-        <section className="lookbook" id="lookbook" data-animate>
-          <div className="section-header">
-            <p className="eyebrow">Lookbook</p>
-            <span>Captured in residence</span>
-          </div>
-          <div className="lookbook__carousel">
-            {lookbookShots.map((shot) => (
-              <figure key={shot.src} className="lookbook__frame" data-parallax="7">
-                <Image src={shot.src} alt={shot.alt} fill sizes="(min-width: 1024px) 460px, 80vw" />
+          <div className="mobile__screens">
+            {mobileScreens.map((screen, index) => (
+              <figure
+                key={screen.src}
+                className="mobile__frame"
+                style={{ "--stagger": index } as CSSProperties}
+                data-parallax="7"
+              >
+                <Image src={screen.src} alt={screen.alt} fill sizes="(min-width: 1024px) 240px, 70vw" />
               </figure>
             ))}
           </div>
@@ -488,142 +411,149 @@ export default function Home() {
 
         <section className="services" id="services" data-animate>
           <div className="section-header">
-            <p className="eyebrow">At your service</p>
-            <span>Expertise from ideation to installation</span>
+            <p className="eyebrow">Ways we ship</p>
+            <h2>Modular services that scale with your roadmap.</h2>
           </div>
           <div className="services__grid">
-            {services.map((service) => (
-              <article key={service.title} className="services__card">
+            {services.map((service, index) => (
+              <article
+                key={service.title}
+                className="services__card"
+                style={{ "--stagger": index } as CSSProperties}
+              >
+                <span className="services__index">0{index + 1}</span>
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
                 <Link href="#" className="link-underline">
-                  Enquire
+                  Scope this service
                 </Link>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="studios" id="studios" data-animate>
-          <div className="studios__content">
-            <p className="eyebrow">Studios worldwide</p>
-            <h2>Consult with our designers from Barcelona, Melbourne, and New York.</h2>
-            <p>
-              Book a private appointment to tailor silhouettes, textiles, and finishes to your space. Our design team
-              provides renderings and sample palettes for every commission.
-            </p>
-            <div className="studios__actions">
-              <Link className="button button--primary" href="#">
-                Book consultation
-              </Link>
-              <Link className="button button--ghost" href="#">
-                View studios
-              </Link>
-            </div>
-          </div>
-          <div className="studios__media" data-parallax="4">
-            <Image
-              src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=80"
-              alt="Interior design studio"
-              fill
-              sizes="(min-width: 1024px) 520px, 90vw"
-            />
-          </div>
-        </section>
+        <section className="contact" id="contact">
+          <div className="contact__form" data-animate>
+            <p className="eyebrow">Contact cart</p>
+            <h2>Tell us about the build you have in mind.</h2>
+            <form>
+              <label htmlFor="name">Full name</label>
+              <input id="name" name="name" type="text" placeholder="Founder's name" autoComplete="name" required />
 
-        <section className="journal" id="journal" data-animate>
-          <div className="section-header">
-            <p className="eyebrow">Journal</p>
-            <Link href="#" className="link-underline">
-              Read all stories
-            </Link>
-          </div>
-          <div className="journal__grid">
-            {journalEntries.map((entry) => (
-              <article key={entry.title} className="journal__card">
-                <p className="journal__date">{entry.date}</p>
-                <h3>{entry.title}</h3>
-                <p>{entry.excerpt}</p>
-                <Link href="#" className="link-underline">
-                  Continue reading
-                </Link>
-              </article>
-            ))}
-          </div>
-        </section>
+              <label htmlFor="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="name@brand.com" autoComplete="email" required />
 
-        <section className="newsletter" data-animate>
-          <div className="newsletter__inner">
-            <div>
-              <p className="eyebrow">Studio dispatch</p>
-              <h2>Receive capsule drops, project reveals, and atelier invitations.</h2>
-              <p>
-                Subscribe for monthly notes from our creative directors and be the first to access limited releases and
-                collaborations.
-              </p>
-            </div>
-            <form className="newsletter__form" aria-label="Newsletter signup">
-              <label htmlFor="newsletter-email" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="newsletter-email"
-                type="email"
-                name="email"
-                placeholder="Email address"
-                autoComplete="email"
-                required
+              <label htmlFor="website">Current website</label>
+              <input id="website" name="website" type="url" placeholder="https://" autoComplete="url" />
+
+              <label htmlFor="bundle">Preferred bundle</label>
+              <select id="bundle" name="bundle" defaultValue="">
+                <option value="" disabled>
+                  Select a bundle
+                </option>
+                {bundleProducts.map((bundle) => (
+                  <option key={bundle.name} value={bundle.name}>
+                    {bundle.name}
+                  </option>
+                ))}
+              </select>
+
+              <label htmlFor="notes">Project notes</label>
+              <textarea
+                id="notes"
+                name="notes"
+                rows={4}
+                placeholder="Launch goals, timeline, integrations…"
               />
+
               <button type="submit" className="button button--primary">
-                Join list
+                Submit inquiry
               </button>
             </form>
+          </div>
+          <aside className="contact__summary" data-animate>
+            <h3>Launch support</h3>
+            <ul>
+              {contactHighlights.map((highlight) => (
+                <li key={highlight}>{highlight}</li>
+              ))}
+            </ul>
+            <div className="contact__totals">
+              <div>
+                <span>Avg. engagement</span>
+                <strong>12 weeks</strong>
+              </div>
+              <div>
+                <span>Investment range</span>
+                <strong>$18k - $120k</strong>
+              </div>
+            </div>
+            <p className="contact__footnote">We respond within one business day worldwide.</p>
+          </aside>
+        </section>
+
+        <section className="team" aria-label="Core team" data-animate>
+          <div className="section-header">
+            <p className="eyebrow">Core team</p>
+            <h2>The squad building tomorrow's beloved brands.</h2>
+          </div>
+          <div className="team__grid">
+            {teamMembers.map((member, index) => (
+              <figure
+                key={member.name}
+                className="team__card"
+                style={{ "--stagger": index } as CSSProperties}
+              >
+                <div className="team__media" data-parallax="6">
+                  <Image src={member.image} alt={member.name} fill sizes="(min-width: 1024px) 220px, 70vw" />
+                </div>
+                <figcaption>
+                  <strong>{member.name}</strong>
+                  <span>{member.role}</span>
+                  <span className="team__location">{member.location}</span>
+                </figcaption>
+              </figure>
+            ))}
           </div>
         </section>
       </main>
 
       <footer className="site-footer" data-animate>
         <div className="site-footer__brand">
-          <span>Fonder Atelier</span>
-          <p>Designing enduring furniture for modern residences since 2015.</p>
+          <span>Fonder Studio</span>
+          <p>Brand builders for founders shaping the next wave of commerce.</p>
         </div>
         <div className="site-footer__links">
           <div>
-            <p className="eyebrow">Shop</p>
+            <p className="eyebrow">Explore</p>
             <ul>
               <li>
-                <Link href="#">Seating</Link>
+                <Link href="#bundles">Bundles</Link>
               </li>
               <li>
-                <Link href="#">Tables</Link>
+                <Link href="#work">Work</Link>
               </li>
               <li>
-                <Link href="#">Lighting</Link>
-              </li>
-              <li>
-                <Link href="#">Outdoor</Link>
+                <Link href="#services">Services</Link>
               </li>
             </ul>
           </div>
           <div>
-            <p className="eyebrow">Studio</p>
+            <p className="eyebrow">Connect</p>
             <ul>
               <li>
-                <Link href="#">About</Link>
+                <Link href="mailto:hello@fonder.studio">Email</Link>
               </li>
               <li>
-                <Link href="#">Sustainability</Link>
+                <Link href="#contact">Project inquiry</Link>
               </li>
               <li>
-                <Link href="#">Careers</Link>
-              </li>
-              <li>
-                <Link href="#">Contact</Link>
+                <Link href="#studio">Our team</Link>
               </li>
             </ul>
           </div>
           <div>
-            <p className="eyebrow">Follow</p>
+            <p className="eyebrow">Social</p>
             <ul>
               <li>
                 <Link href="#">Instagram</Link>
@@ -632,10 +562,7 @@ export default function Home() {
                 <Link href="#">Pinterest</Link>
               </li>
               <li>
-                <Link href="#">Behance</Link>
-              </li>
-              <li>
-                <Link href="#">Newsletter</Link>
+                <Link href="#">LinkedIn</Link>
               </li>
             </ul>
           </div>

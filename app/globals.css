@@ -3,20 +3,23 @@
 }
 
 :root {
-  color-scheme: light;
-  --background: #ffe4ed;
-  --surface: #fff6f9;
-  --surface-muted: #ffd7e5;
-  --surface-contrast: #140608;
-  --text-primary: #2a0b11;
-  --text-muted: #8a4153;
-  --accent: #ff5a5f;
-  --accent-dark: #e2474c;
-  --border-soft: rgba(20, 6, 8, 0.08);
-  --shadow-soft: 0 24px 60px rgba(34, 9, 13, 0.16);
-  --radius-large: 32px;
-  --radius-medium: 18px;
-  --radius-small: 12px;
+  color-scheme: dark;
+  --background: #050506;
+  --surface: #0d0d10;
+  --surface-muted: #111118;
+  --surface-light: #f8f8f8;
+  --surface-ink: #0b0b0f;
+  --text-primary: #f4f4f6;
+  --text-muted: #a7a7b3;
+  --text-inverse: #0b0406;
+  --accent: #ff6b2c;
+  --accent-soft: rgba(255, 107, 44, 0.14);
+  --hero-pink: #ff5f8f;
+  --border-soft: rgba(255, 255, 255, 0.08);
+  --shadow-soft: 0 24px 60px rgba(8, 8, 12, 0.35);
+  --radius-large: 40px;
+  --radius-medium: 22px;
+  --radius-small: 14px;
   --font-sans: "Inter", "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-serif: "Playfair Display", "Times New Roman", serif;
 }
@@ -47,5 +50,5 @@ button {
 }
 
 ::selection {
-  background: rgba(207, 143, 91, 0.25);
+  background: rgba(255, 107, 44, 0.3);
 }
