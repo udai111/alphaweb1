@@ -17,6 +17,17 @@ npm run dev
 
 Then visit [http://localhost:3000](http://localhost:3000) to browse the site. Any edits to files inside `app/` will hot-reload in place.
 
+### Previewing exactly what will ship
+
+If you want to review the production build locally before sharing it with others, run:
+
+```bash
+npm run build
+npm run start
+```
+
+The first command compiles and optimizes the app. The second command serves the compiled output at [http://localhost:3000](http://localhost:3000), matching what Vercel or any Node host will deliver.
+
 To validate before shipping, generate a production build:
 
 ```bash
