@@ -6,10 +6,9 @@ import Link from "next/link";
 import "./styles/home.css";
 
 const navLinks = [
-  { label: "Shop", href: "#shop" },
-  { label: "New", href: "#showcase" },
-  { label: "Values", href: "#principles" },
-  { label: "Studios", href: "#studios" },
+  { label: "Solutions", href: "#services" },
+  { label: "Work", href: "#showcase" },
+  { label: "Studio", href: "#studios" },
   { label: "Journal", href: "#journal" },
 ];
 
@@ -271,10 +270,9 @@ export default function Home() {
       <div className="ambient-gradient" aria-hidden="true" />
       <div className="film-grain" aria-hidden="true" />
       <header className="site-header" data-animate>
-        <div className="site-header__brand" data-parallax="4">
-          <span>Fonder</span>
-          <span>Atelier</span>
-        </div>
+        <Link className="site-header__brand" href="#home" data-parallax="4">
+          Fonder
+        </Link>
         <nav className="site-nav" aria-label="Primary navigation">
           {navLinks.map((link) => (
             <Link key={link.label} href={link.href}>
@@ -282,36 +280,28 @@ export default function Home() {
             </Link>
           ))}
         </nav>
-        <div className="site-header__actions">
-          <button type="button" aria-label="Search catalogue">
-            Search
-          </button>
-          <button type="button" aria-label="Open account">
-            Account
-          </button>
-          <button type="button" aria-label="View cart">
-            Cart • 2
-          </button>
-        </div>
+        <Link className="site-header__cta" href="#studios">
+          Let's work
+        </Link>
       </header>
 
       <main className="site-main">
         <section className="hero" id="home">
           <div className="hero__content" data-animate>
-            <p className="hero__eyebrow">FW25 Studio Release</p>
+            <p className="hero__eyebrow">Brand design studio</p>
             <h1 className="hero__title">
-              Design-led furniture handcrafted for curated living spaces.
+              WHERE GREAT IDEAS BECOME <span className="hero__heart" aria-hidden>♥</span> BELOVED BRANDS
             </h1>
             <p className="hero__body">
-              Fonder Studio crafts sculptural essentials in limited runs using regenerative materials and slow
-              processes. Build layered rooms that feel collected over time with silhouettes that endure.
+              Fonder partners with founders to transform concepts into magnetic commerce experiences through strategy,
+              identity, and digital storefronts that resonate.
             </p>
             <div className="hero__cta">
-              <Link className="button button--primary" href="#shop">
-                Shop collection
+              <Link className="button button--primary" href="#services">
+                Explore solutions
               </Link>
-              <Link className="button button--ghost" href="#lookbook">
-                Explore lookbook
+              <Link className="button button--ghost" href="#studios">
+                Let's collaborate
               </Link>
             </div>
             <dl className="hero__metrics">
@@ -322,30 +312,6 @@ export default function Home() {
                 </div>
               ))}
             </dl>
-          </div>
-          <div className="hero__visual" data-animate>
-            <div className="hero__video-frame" data-parallax="6">
-              <video
-                className="hero__video"
-                autoPlay
-                loop
-                muted
-                playsInline
-                poster="https://images.unsplash.com/photo-1616627452558-74a53ce38afc?auto=format&fit=crop&w=1200&q=80"
-              >
-                <source
-                  src="https://cdn.coverr.co/videos/coverr-morning-light-in-a-minimalist-bedroom-6446/1080p.mp4"
-                  type="video/mp4"
-                />
-              </video>
-            </div>
-            <div className="hero__gallery" data-parallax="3">
-              {lookbookShots.slice(0, 2).map((shot) => (
-                <figure key={shot.src} className="hero__shot">
-                  <Image src={shot.src} alt={shot.alt} fill sizes="(min-width: 1024px) 360px, 50vw" />
-                </figure>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -520,7 +486,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="services" data-animate>
+        <section className="services" id="services" data-animate>
           <div className="section-header">
             <p className="eyebrow">At your service</p>
             <span>Expertise from ideation to installation</span>
