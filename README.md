@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Fonder-inspired ecommerce experience
 
-## Getting Started
+This project recreates the atmospheric single-page experience from [fonder.studio](https://www.fonder.studio/) using the Next.js App Router. It ships with:
 
-First, run the development server:
+- A motion-rich homepage (`app/page.tsx`) that mirrors the reference layout—toolbar, hero, marquee, capsule spotlight, carousel, services, studio consultation, and more.
+- Custom theme tokens and layered gradients defined in `app/globals.css` and `app/styles/home.css` to deliver the soft pink palette, ambient grain, and bespoke interactions.
+- Production-ready configuration (`next.config.ts`) that allows loading remote media without depending on external font downloads, ensuring reproducible builds.
+
+## Getting started locally
+
+Install dependencies and spin up the development server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then visit [http://localhost:3000](http://localhost:3000) to browse the site. Any edits to files inside `app/` will hot-reload in place.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Previewing exactly what will ship
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+If you want to review the production build locally before sharing it with others, run:
 
-## Learn More
+```bash
+npm run build
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+The first command compiles and optimizes the app. The second command serves the compiled output at [http://localhost:3000](http://localhost:3000), matching what Vercel or any Node host will deliver.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To validate before shipping, generate a production build:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run build
+```
 
-## Deploy on Vercel
+The command runs the Turbopack optimizer, type checks, and produces static assets in the `.next` directory.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment playbook
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+There are two primary deployment paths depending on where you host code.
+
+### 1. Deploy from GitHub (recommended)
+
+1. Commit and push the project to your GitHub repository (`trg121` in your case).
+2. Create a new site on [Vercel](https://vercel.com/) and import the repository.
+3. Accept the detected framework preset (Next.js). No extra environment variables are required.
+4. Trigger a production deploy. Vercel will install dependencies, run `npm run build`, and host the generated output globally.
+
+### 2. Deploy manually with the Vercel CLI
+
+If you prefer to deploy directly from your machine:
+
+```bash
+npm install -g vercel
+vercel login           # authenticate once
+npm run build          # optional but recommended to verify locally
+vercel --prod          # deploy the current branch
+```
+
+The CLI automatically uploads the optimized build and returns the live URL.
+
+### Need to target another platform?
+
+The generated `.next` directory can also be exported to any Node-compatible hosting provider. Follow the official [Next.js deployment guide](https://nextjs.org/docs/app/building-your-application/deploying) for platform-specific instructions.
