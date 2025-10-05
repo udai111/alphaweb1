@@ -82,6 +82,49 @@ const mobileScreens = [
   },
 ];
 
+const brandScreens = [
+  {
+    title: "Flagship product drop",
+    description:
+      "High-volume launch architecture with bundled upsells, live inventory callouts, and event-ready merchandising moments.",
+    badge: "Shopify Plus",
+    metric: "42% conversion lift",
+    image:
+      "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1400&q=80",
+    href: "#contact",
+  },
+  {
+    title: "Editorial storytelling",
+    description:
+      "Layered, long-form narratives with embedded video, motion galleries, and commerce handoffs tuned for scroll depth.",
+    badge: "Content systems",
+    metric: "7 min avg. dwell",
+    image:
+      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1400&q=80",
+    href: "#archive",
+  },
+  {
+    title: "Mobile membership hub",
+    description:
+      "Portal experience with gated drops, loyalty progress, and on-the-go purchasing optimised for the founders' community.",
+    badge: "Retention design",
+    metric: "3.5x repeat rate",
+    image:
+      "https://images.unsplash.com/photo-1611162616305-3d75ce09ffb1?auto=format&fit=crop&w=1400&q=80",
+    href: "#contact",
+  },
+  {
+    title: "Immersive retail guide",
+    description:
+      "Interactive brand journal bridging physical activations with digital sign-ups, built for seasonal experiential tours.",
+    badge: "Experiential",
+    metric: "18K sign-ups",
+    image:
+      "https://images.unsplash.com/photo-1529338296731-c4280a44fc47?auto=format&fit=crop&w=1400&q=80",
+    href: "#contact",
+  },
+];
+
 const services = [
   {
     title: "Identity systems",
@@ -299,6 +342,51 @@ export default function Home() {
           </div>
         </div>
 
+        <section className="screens" id="work">
+          <div className="section-header screens__header" data-animate>
+            <p className="eyebrow">Recent builds</p>
+            <div>
+              <h2>Multi-surface experiences crafted for scale.</h2>
+              <p>
+                Glimpses from the latest launches across desktop, mobile, and spatial retail. Each surface is designed to
+                carry the brand with precision while keeping commerce immediate.
+              </p>
+            </div>
+          </div>
+          <div className="screens__viewport" data-animate>
+            <div className="screens__rail">
+              {brandScreens.map((screen, index) => (
+                <article
+                  key={screen.title}
+                  className="screen-card"
+                  data-animate
+                  style={{ "--stagger": index } as CSSProperties}
+                >
+                  <div className="screen-card__glow" aria-hidden="true" />
+                  <div className="screen-card__frame" data-parallax={index % 2 === 0 ? "7" : "5"}>
+                    <Image
+                      src={screen.image}
+                      alt={screen.title}
+                      fill
+                      sizes="(min-width: 1024px) 320px, 75vw"
+                      priority={index === 0}
+                    />
+                  </div>
+                  <div className="screen-card__meta">
+                    <span className="screen-card__badge">{screen.badge}</span>
+                    <h3>{screen.title}</h3>
+                    <p>{screen.description}</p>
+                    <span className="screen-card__metric">{screen.metric}</span>
+                    <Link className="screen-card__link" href={screen.href}>
+                      Explore project
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="bundles" id="bundles">
           <div className="section-header" data-animate>
             <p className="eyebrow">Project bundles</p>
@@ -367,7 +455,7 @@ export default function Home() {
           </dl>
         </section>
 
-        <section className="case-studies" id="work">
+        <section className="case-studies" id="archive">
           {caseStudies.map((study, index) => (
             <article
               key={study.title}
